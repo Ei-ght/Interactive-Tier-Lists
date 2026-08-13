@@ -1,6 +1,6 @@
 # Interactive-Tier-Lists
 
-**[Ace Attorney Recurring Songs](https://github.com/Ei-ght/Interactive-Tier-Lists/blob/main/Interactive%20Tier%20List%E2%84%A2%20-%20Ace%20Attorney%20Recurring%20Songs.txt)**  
+**[Ace Attorney Recurring Songs](https://github.com/Ei-ght/Interactive-Tier-Lists/blob/main/Ace%20Attorney%20Recurring%20Songs.txt)**  
 Songs that are very similar to each other in how they're used in every game. For example, every game has a courtroom lobby, and thus a unique song that plays there.  
 
 **[Ace Attorney Character Songs](https://github.com/Ei-ght/Interactive-Tier-Lists/blob/main/Ace%20Attorney%20Character%20Songs.txt)**  
