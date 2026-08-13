@@ -1,0 +1,351 @@
+// ==UserScript==
+// @name         Interactive Tier List™ - AA Recurring Songs
+// @namespace    http://tampermonkey.net/
+// @version      1.0.0
+// @description  Assigns specific URLs to icons based on their ID on tiermaker.com
+// @author       Eight
+// @match        https://*.tiermaker.com/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    console.log("Icon script is a go!");
+
+    // Define the specific URLs for each icon ID
+
+
+    var urlMap = {
+
+    // Ace Attorney 1
+
+        '13': 'https://jetta.vgmtreasurechest.com/soundtracks/phoenix-wright-ace-attorney-trilogy-nintendo-3ds/uojevogp/1-01.%20Title%20Screen.mp3', //
+        '363': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/jmgtbzuy/1-02%20Defendant%20Lobby%20-%20So%20it%20Begins.mp3', //
+        '364': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/jypffkjs/1-03%20Phoenix%20Wright-%20Ace%20Attorney%20-%20Court%20is%20Now%20in%20Session.mp3', //
+        '365': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/ldifaosw/1-04%20Cross-Examination%20-%20Moderato%202001.mp3', //
+        '366': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/dbxllwao/1-05%20Tricks%20and%20Deductions.mp3', //
+        '367': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/rtshjzvc/1-06%20Phoenix%20Wright%20-%20Objection%21%202001.mp3', //
+        '368': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/zsnlserz/1-07%20Cross-Examination%20-%20Allegro%202001.mp3', //
+        '369': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/vejgfjer/1-08%20Pursuit%20-%20Corner%20the%20Culprit.mp3', //
+        '370': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/yssldftc/1-09%20The%20Truth%20Revealed%202001.mp3', //
+        '358': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/heydzjzs/1-10%20Suspense.mp3', //
+        '361': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/duppfgro/1-13%20Initial%20Investigation%202001.mp3', //
+        '378': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/zyvgvgxs/1-23%20Heart%20of%20the%20Investigation%202001.mp3', //
+        '371': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/pxrrjvzk/1-15%20Detention%20Center%20-%20The%20Security%20Guards%27%20Elegy.mp3', //
+        '380': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/gtxizvfp/1-25%20Victory%21%20-%20Our%20First%20Win.mp3', //
+        '381': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/jabdpmqt/1-26%20Phoenix%20Wright-%20Ace%20Attorney%20-%20Ending.mp3', //
+        '389': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/apxtaxmp/1-34%20Rise%20from%20the%20Ashes%20-%20Ending.mp3', //
+        '360': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/qkaysrey/1-12%20Jingle%20-%20There%27s%20No%20Stopping%20Here.mp3', //
+
+    // Ace Attorney 2
+
+        '104': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/qiqhovmw/2-03%20Defendant%20Lobby%20-%20So%20it%20Begins%20Again.mp3', //
+        '147': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/wwplildj/2-04%20Justice%20for%20All%20-%20Court%20is%20Now%20in%20Session.mp3', //
+        '180': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/kaweibik/2-05%20Cross-Examination%20-%20Moderato%202002.mp3', //
+        '200': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/bdlwxzfc/2-06%20Magic%20and%20Tricks.mp3', //
+        '218': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/xgmsbfxu/2-07%20Phoenix%20Wright%20-%20Objection%21%202002.mp3', //
+        '242': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/avczoukp/2-28%20Triumphant%20Return%20-%20Miles%20Edgeworth.mp3', //
+        '226': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/hcoocuqw/2-08%20Cross-Examination%20-%20Allegro%202002.mp3', //
+        '233': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/msdqqhqe/2-09%20Pursuit%20-%20Confront%20the%20Culprit.mp3', //
+        '4': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/cvxakzsp/2-10%20The%20Truth%20Revealed%202002.mp3', //
+        '102': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/suvsbgcr/2-29%20Hotline%20of%20Fate.mp3', //
+        '41': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/vanrtuse/2-15%20Initial%20Investigation%202002.mp3', //
+        '90': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/zqdxbnkl/2-27%20Further%20Investigation%202002.mp3', //
+        '116': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/dquaripz/2-30%20Heart%20of%20the%20Investigation%202002.mp3', //
+        '55': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/lemvsbdm/2-17%20Detention%20Center%20-%20The%20Security%20Camera%27s%20Elegy.mp3', //
+        '39': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/fsxlolmb/2-14%20Psyche-Locks.mp3', //
+        '123': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/zkawgsuv/2-33%20Victory%21%20-%20Another%20Win.mp3', //
+        '134': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/sdmczoxx/2-34%20Justice%20for%20All%20-%20Ending.mp3', //
+        '28': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/oufujiot/2-13%20Jingle%20-%20There%27s%20No%20Sleeping%20Tonight.mp3', //
+        '20': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/vigefoao/2-11%20Ringtone%20%28Phoenix%20Wright%29.mp3', //
+        '59': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/exycprnq/2-02%20Ringtone%20%28Richard%20Wellington%29.mp3', //
+
+    // Ace Attorney 3
+
+        '60': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/mvszxmqw/3-02%20Defendant%20Lobby%20-%20So%20it%20Will%20Always%20Begin.mp3', //
+        '105': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/jdsdoizz/3-03%20Trials%20and%20Tribulations%20-%20Court%20is%20Now%20in%20Session.mp3', //
+        '148': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/xqmlsimj/3-04%20Cross-Examination%20-%20Moderato%202004.mp3', //
+        '181': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/ldihmmbt/3-05%20Phoenix%20Wright%20-%20Objection%21%202004.mp3', //
+        '21': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/crzzaabf/3-11%20Godot%20-%20The%20Fragrance%20of%20Dark%20Coffee.mp3', //
+        '201': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/prrjvaor/3-06%20Cross-Examination%20-%20Allegro%202004.mp3', //
+        '219': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/uxfkgakz/3-07%20Pursuit%20-%20Catch%20the%20Culprit.mp3', //
+        '120': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/kshkbchd/3-31%20Pursuit%20-%20Corner%20the%20Culprit%202004.mp3', //
+        '227': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/qiqfedgv/3-08%20The%20Truth%20Revealed%202004.mp3', //
+        '29': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/jkaxlnel/3-13%20Initial%20Investigation%202004.mp3', //
+        '98': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/nwszuzmo/3-29%20Further%20Investigation%202004.mp3', //
+        '51': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/xakbzvej/3-16%20Detention%20Center%20-%20The%20Prisoner%27s%20Elegy.mp3', //
+        '122': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/xcuqucav/3-32%20Victory%21%20-%20An%20Eternal%20Win.mp3', //
+        '124': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/dceogobp/3-33%20Trials%20and%20Tribulations%20-%20Ending.mp3', //
+        '22': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/xwpiyqkc/3-12%20Jingle%20-%20There%27s%20No%20Going%20Back.mp3', //
+        '128': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/taxlmdek/3-34%20Ringtone%20%28Godot%29.mp3', //
+
+    // Ace Attorney 4
+
+        '11': 'https://lambda.vgmtreasurechest.com/soundtracks/apollo-justice-ace-attorney-trilogy-exclusive-tracks-gamerip-ps4-switch-windows-xbox-one-gamerip-2024/attnhxrs/01.%20Apollo%20Justice%20-%20A%20New%20Era%20Begins%202024.mp3', //
+        '61': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/qliiovlt/02.%20Defendant%20Lobby%20-%20So%20it%20Begins%20Anew.mp3', //
+        '106': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/nfofhwlq/03.%20Apollo%20Justice%20-%20Ace%20Attorney%20-%20Court%20is%20Now%20in%20Session.mp3', //
+        '149': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/ubynuiiq/04.%20Cross-Examination%20-%20Moderato%202007.mp3', //
+        '182': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/fdbxiyql/05.%20Trance-Deductions.mp3', //
+        '202': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/fvnannap/06.%20Apollo%20Justice%20-%20A%20New%20Era%20Begins%21.mp3', //
+        '40': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/qisqzyvi/14.%20Klavier%20Gavin%20-%20Guilty%20Love.mp3', //
+        '220': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/zdqvgrsm/07.%20Cross-Examination%20-%20Allegro%202007.mp3', //
+        '14': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/qwizzaet/11.%20Pursuit%20-%20Gotta%20Corner%20the%20Culprit.mp3', //
+        '228': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/icppeegu/08.%20The%20Truth%20Revealed%202007.mp3', //
+        '234': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/cgxugugu/09.%20A%20Thrilling%20Theme%20-%20Suspense.mp3', //
+        '48': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/hqirlftb/16.%20Initial%20Investigation%202007.mp3', //
+        '117': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/fyblattn/31.%20Heart%20of%20the%20Investigation%202007.mp3', //
+        '52': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/dkptzttm/17.%20Detention%20Center%20-%20Bittersweet%20Meetings.mp3', //
+        '5': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/hdthffid/10.%20Perceive%20-%20Laser-Focused%20Eyes.mp3', //
+        '92': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/ggllznrw/28.%20Psyche-Locks%202007.mp3', //
+        '125': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/onxbooef/33.%20Victory%21%20-%20A%20Win%20for%20Us.mp3', //
+        '129': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/nxakattn/34.%20Apollo%20Justice%20-%20Ace%20Attorney%20-%20Ending.mp3', //
+        '23': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/hfgmtihm/12.%20Jingle%20-%20That%E2%80%99s%20All%20For%20Today.mp3', //
+        '356': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/bfuksgfg/21.%20Ringtone%20%28Guilty%20Love%29.mp3', //
+
+    // Ace Attorney 5
+
+        '62': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/xhssjuwz/1-02.%20Courtroom%20Lobby%20~%20Prelude%20to%20the%20Future.mp3', //
+        '107': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/gjbdlxfh/1-03.%20Gyakuten%20Saiban%205%20-%20Trial.mp3', //
+        '150': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/wkkvyfei/1-04.%20Questioning%20~%20Moderato%202013.mp3', //
+        '183': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/ckvydyfg/1-05.%20Logic%20Trinity.mp3', //
+        '221': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/ixobqadr/1-07.%20Phoenix%20Wright%20~%20Objection%21%202013.mp3', //
+        '93': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/prrjuwzh/1-28.%20Apollo%20Justice%20~%20The%20Start%20of%20a%20New%20Chapter%21%202013.mp3', //
+        '162': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/topivfod/1-41.%20Athena%20Cykes%20~%20Bringer%20of%20Revolution%21.mp3', //
+        '91': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/wsbcjldk/1-27.%20Simon%20Blackquill%20~%20Distorted%20Swordmanship.mp3', //
+        '241': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/llxdaqbn/2-09.%20Miles%20Edgeworth%20~%20Great%20Revival%202013.mp3', //
+        '235': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/snnyhmoj/1-09.%20Questioning%20~%20Allegro%202013.mp3', //
+        '15': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/fkktpssn/1-11.%20Pressing%20Pursuit%20~%20Keep%20Pressing%20On.mp3', //
+        '24': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/kniclbva/1-12.%20Announce%20the%20Truth%202013.mp3', //
+        '6': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/eryqjzux/1-10.%20Suspense%202013.mp3', //
+        '240': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/ldjjuuok/2-12.%20Illegal%20of%20Destiny.mp3', //
+        '76': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/tqxpgoai/1-23.%20Investigation%20~%20Opening%202013.mp3', //
+        '174': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/ijwgssju/2-05.%20Investigation%20~%20Examination.mp3', //
+        '192': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/ukqyxqlj/2-11.%20Investigation%20~%20Core%202013.mp3', //
+        '77': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/qggmujoq/1-24.%20Detention%20Center%20~%20Elegy%20of%20the%20Bulletproof%20Glass.mp3', //
+        '99': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/khcsfydu/1-29.%20Thought%20Route%20~%20Resonance%20of%20the%20Synapses.mp3', //
+        '141': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/ygjeqrlf/1-37.%20Mood%20Matrix%20~%20Commence%20the%20Psychological%20Analysis%21.mp3', //
+        '143': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/uiexzezj/1-38.%20Running%20Wild%20%C2%B7%20Mood%20Matrix%20~%20Get%20A%20Grip%20On%20Yourself.mp3', //
+        '179': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/sypbpswd/2-07.%20Chains%20of%20the%20Heart%20~%20Psyche-Lock%202013.mp3', //
+        '199': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/qmmzlhbl/2-17.%20Won%20the%20Case%20~%20Everyone%E2%80%99s%20Victory.mp3', //
+        '210': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/zqhkhctj/2-18.%20Gyakuten%20Saiban%205%20~%20End.mp3', //
+        '34': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/ajsnkmfp/1-14.%20Jingle%20~%20You%20Need%20To%20Rest%20At%20Such%20A%20Time.mp3', //
+        '355': 'https://nu.vgmtreasurechest.com/soundtracks/phoenix-wright-ace-attorney-dual-destinies-3ds-gamerip-2013/slbxjeul/56.%20Ringtone%20%28Apollo%20Justice%29.mp3', //
+
+    // Ace Attorney 6
+
+        '58': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/evojetfw/1-01.%20A%20Quiet%20Prayer.mp3', //
+        '78': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/urbgzgjz/1-24.%20Defendant%20Lobby%20-%20Prelude%20to%20the%20Truth.mp3', //
+        '151': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/bzubvaqc/1-04.%20Defendant%20Lobby%20-%20Prelude%20to%20a%20Revolution.mp3', //
+        '81': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/whzxqnoj/1-25.%20Spirit%20of%20Justice%20-%20Court%20is%20Now%20in%20Session.mp3', //
+        '184': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/qwjfybon/1-05.%20Spirit%20of%20Justice%20-%20Court%20is%20Now%20in%20Session%20Abroad.mp3', //
+        '222': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/zwhytzrm/1-07.%20Cross-Examination%20-%20Moderato%202016.mp3', //
+        '203': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/amhagdyj/1-06.%20Logic%20Construct.mp3', //
+        '88': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/czqebvvr/1-27.%20Basics%20of%20the%20Case.mp3', //
+        '16': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/pxqntend/1-11.%20Phoenix%20Wright%20-%20Objection%21%202016.mp3', //
+        '94': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/ystomtjp/1-28.%20Apollo%20Justice%20-%20A%20New%20Chapter%20of%20Trials%21%202016.mp3', //
+        '171': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/rpaggmqs/2-11.%20Athena%20Cykes%20-%20Courtroom%20R%C3%A9volutionnaire%202016.mp3', //
+        '87': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/ckuqubav/1-26.%20Nahyuta%20Sahdmadhi%20-%20Prosecutor%20of%20Last%20Rites.mp3', //
+        '194': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/kescjmjk/2-20.%20The%20Court%20of%20Resignation.mp3', //
+        '35': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/ileogqjz/1-14.%20Cross-Examination%20-%20Allegro%202016.mp3', //
+        '42': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/uxhrnqqe/1-15.%20Pursuit%20-%20Cornering%20the%20Culprit%20Together.mp3', //
+        '49': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/buthirmj/1-16.%20The%20Truth%20Revealed%202016.mp3', //
+        '357': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/whueodbx/2-19.%20A%20Cornered%20Heart.mp3', //
+        '68': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/wruwanlu/1-20.%20Initial%20Investigation%202016.mp3', //
+        '137': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/xrqfdbwf/1-35.%20Initial%20Investigation%20Abroad.mp3', //
+        '74': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/bhhntert/1-23.%20Heart%20of%20the%20Investigation%202016.mp3', //
+        '158': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/oxuihlhe/2-05.%20Heart%20of%20the%20Investigation%20Abroad.mp3', //
+        '70': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/apyzbhgj/1-22.%20Detention%20Center%20-%20The%20Cold%20Cell%27s%20Elegy.mp3', //
+        '146': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/onaldjky/2-04.%20Detention%20Center%20-%20The%20Iron%20Bars%27%20Elegy.mp3', //
+        '236': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/qjztxegt/1-09.%20Divination%20S%C3%A9ance%20-%20A%20Spirit%27s%20Final%20Moments.mp3', //
+        '7': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/avarinqs/1-10.%20Divination%20S%C3%A9ance%20-%20Rayfa%27s%20Insight.mp3', //
+        '197': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/ficnhvgv/2-23.%20Victory%21%20-%20Each%20of%20Our%20Wins.mp3', //
+        '198': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/ighqjxki/2-24.%20Spirit%20of%20Justice%20-%20Ending.mp3', //
+        '53': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/lawgphsq/1-17.%20Jingle%20-%20Taking%20a%20Breather.mp3', //
+
+    // Ace Attorney Investigations 1
+
+        '12': 'https://jetta.vgmtreasurechest.com/soundtracks/ace-attorney-investigations-collection-bonus-tracks-ps4-switch-windows-xbox-one-gamerip-2024/xtzqghuz/01.%20Prelude%20to%20Pursuit%20-%20Search%20for%20the%20Truth.mp3', //
+        '113': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/bztushea/2-08.%20Courtroom%20-%20Guardians%20of%20the%20Law.mp3', //
+        '223': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/jmjjutmd/1-07.%20Confrontation%20-%20Moderato%202009.mp3', //
+        '229': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/fohsusgb/1-08.%20Tricks%20and%20Gimmicks.mp3', //
+        '25': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/zvhxrtpu/1-12.%20Tricks%20and%20Baroque.mp3', //
+        '237': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/oqlkrbjo/1-09.%20Miles%20Edgeworth%20-%20Objection%21%202009.mp3', //
+        '8': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/syoxyxsw/1-10.%20Confrontation%20-%20Allegro%202009.mp3', //
+        '30': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/dgwpkhez/1-13.%20Confrontation%20-%20Presto%202009.mp3', //
+        '36': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/lifbsjsm/1-14.%20Pursuit%20-%20Chase%20Down%20the%20Truth.mp3', //
+        '17': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/gphpdyfi/1-11.%20The%20Truth%20Revealed%202009.mp3', //
+        '135': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/jskvyfix/2-13.%20Crisis%20of%20Fate.mp3', //
+        '63': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/jnmunfpi/1-02.%20Initial%20Investigation%202009.mp3', //
+        '108': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/vczozfbs/1-03.%20Further%20Investigation%202009.mp3', //
+        '152': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/kvwzfcyl/1-04.%20Deduction%20-%20Crime%20Scene%20Contradictions.mp3', //
+        '100': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/gboqkcik/2-07.%20Little%20Thief%20-%20Secret%20Weapon%20of%20the%20Noble.mp3', //
+        '204': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/lqtxfjeu/1-06.%20Heart%20of%20the%20Investigation%202009.mp3', //
+        '185': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/ihntfwof/1-05.%20Logic%20-%20The%20Path%20to%20the%20Truth.mp3', //
+        '159': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/vkpstrbg/2-19.%20Case%20Closed%21%20-%20A%20Brilliant%20Deduction.mp3', //
+        '163': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/bqxrrhjb/2-20.%20Ace%20Attorney%20Investigations%20-%20Triumphant%20Return%202009.mp3', //
+        '43': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/gwltijxj/1-15.%20Jingle%20-%20A%20Quick%20Break.mp3', //
+
+   // Ace Attorney Investigations 2
+
+        '205': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/nycsilhd/1-06.%20Confrontation%20-%20Moderato%202011.mp3', //
+        '153': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/dcccfvkp/1-04.%20Tricks%20and%20Analyses.mp3', //
+        '114': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/sckrfzff/2-06.%20Tricks%20and%20Breakthroughs.mp3', //
+        '224': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/sfzghtuu/1-07.%20Miles%20Edgeworth%20-%20Objection%21%202011.mp3', //
+        '33': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/whwmtgcq/1-13.%20Eustace%20Winner%20-%20Winning%20Deductions.mp3', //
+        '47': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/xnvqtvvt/1-15.%20Verity%20Gav%C3%A8lle%20-%20Goddess%20of%20Justice.mp3', //
+        '37': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/zxrovlvr/1-14.%20Confrontation%20-%20Allegro%202011.mp3', //
+        '75': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/gsuwziqd/1-23.%20Confrontation%20-%20Presto%202011.mp3', //
+        '79': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/tlwzhpey/1-24.%20Pursuit%20-%20Uncover%20the%20Truth.mp3', //
+        '230': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/olnfnxbo/1-08.%20The%20Truth%20Revealed%202011.mp3', //
+        '130': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/klasqytb/2-10.%20Trial%20of%20Fate.mp3', //
+        '64': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/akymqtus/1-02.%20Initial%20Investigation%202011.mp3', //
+        '18': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/uqxrotbc/1-11.%20Further%20Investigation%202011.mp3', //
+        '109': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/cmasmgwo/1-03.%20Deduction%20-%20Crime%20Scene%20Truths.mp3', //
+        '57': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/htvanqox/1-19.%20Little%20Thief%20-%20Secret%20Weapon%20of%20the%20Noble%202011.mp3', //
+        '66': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/vlraesep/1-20.%20Heart%20of%20the%20Investigation%202011.mp3', //
+        '186': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/vidsbgbn/1-05.%20Mind%20Chess%20-%20Opening%20Moves.mp3', //
+        '160': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/twcvxbmg/2-17.%20Mind%20Chess%20-%20Endgame.mp3', //
+        '172': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/erxmsabf/2-23.%20Case%20Closed%21%20-%20A%20Brief%20Calm.mp3', //
+        '176': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/xwrrjxiw/2-24.%20One%20Prosecutor%27s%20Musings%20-%20Each%20Person%27s%20Answer.mp3', //
+        '238': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/ocvvrysq/1-09.%20Jingle%20-%20Unending%20Trouble.mp3', //
+        '164': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/pdzmkpwk/2-19.%20Ringtone%20%28Verity%20Gav%C3%A8lle%29.mp3', //
+
+    // The Great Ace Attorney 1
+
+        '3': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/bwehvjge/1-01.%20Ryunosuke%20Naruhodo%20-%20Overture%20to%20Adventures.mp3', //
+        '154': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/vgviewvm/1-04.%20The%20Defendants%27%20Antechamber.mp3', //
+        '206': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/csjpvmye/1-06.%20The%20Great%20Ace%20Attorney%20-%20Court%20is%20Now%20in%20Session.mp3', //
+        '209': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/tbaysqzc/2-26.%20The%20Great%20Ace%20Attorney%20-%20Adjudication.mp3', //
+        '231': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/varhlhey/1-08.%20Great%20Cross-Examination%20-%20Moderato.mp3', //
+        '19': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/whxpgmqu/1-11.%20Machinations%20and%20Deductions.mp3', //
+        '31': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/deodbweg/1-13.%20Ryunosuke%20Naruhodo%20-%20Objection%21.mp3', //
+        '166': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/fswhudha/2-09.%20Barok%20van%20Zieks%20-%20The%20Reaper%20of%20the%20Bailey.mp3', //
+        '26': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/yixlpqiv/1-12.%20Great%20Cross-Examination%20-%20Allegro.mp3', //
+        '212': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/onvpozgj/2-27.%20Pursuit%20-%20A%20Great%20Turnabout.mp3', //
+        '44': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/pxtbbbbe/1-15.%20The%20Truth%20Revealed%20%28Adventures%20Version%29.mp3', //
+        '9': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/zvcawgpi/1-10.%20A%20Great%20Twist%20-%20Suspense%20I.mp3', //
+        '38': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/sttkuuqs/1-14.%20A%20Great%20Twist%20-%20Suspense%20II.mp3', //
+        '50': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/tfsbaazx/1-16.%20Foreboding.mp3', //
+        '54': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/oamhzdqu/1-17.%20Complications%20in%20the%20Proceedings.mp3', //
+        '82': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/sabgahmo/1-25.%20Investigation.mp3', //
+        '71': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/cmdhcolp/1-22.%20The%20Heart%20of%20the%20Matter.mp3', //
+        '177': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/quyjbcks/2-15.%20Local%20Prison%20-%20Rhapsody%20in%20Gloom.mp3', //
+        '86': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/jdnhxnzj/1-26.%20Dance%20of%20Deduction%20%28Type%20A%29.mp3', //
+        '95': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/xjdoiyvf/1-28.%20Dance%20of%20Deduction%20%28Type%20B%29.mp3', //
+        '144': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/wbrdtiit/2-05.%20Dance%20of%20Deduction%20%28Type%20C%29.mp3', //
+        '168': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/fctmfoee/2-10.%20Summation%20Examination.mp3', //
+        '214': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/djnmtikc/2-29.%20Victory%20-%20In%20Honour%20of%20My%20Friend.mp3', //
+        '217': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/jjrgfjet/2-32.%20Curtain%20Call%20Suite%20-%20Adventures%27%20End.mp3', //
+        '110': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/sayqjwiy/1-03.%20Jingle%20-%20The%20Curtain%20Rises.mp3', //
+        '131': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/ytasqxsu/1-34.%20Jingle%20-%20Intermission.mp3', //
+
+    // The Great Ace Attorney 2
+
+        '1': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/phtdjilnnm/1-01.%20Ryunosuke%20Naruhodo%20-%20Overture%20to%20Resolve.mp3', //
+        '89': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/hyanqnjvgq/2-01.%20The%20Defendants%27%20Antechamber%20%28Variation%29.mp3', //
+        '96': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/slrtbsefic/2-02.%20The%20Great%20Closed%20Trial%20-%20Court%20is%20Now%20in%20Session.mp3', //
+        '187': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/ycazalailw/1-05.%20Ryutaro%20Naruhodo%20-%20Objection%21.mp3', //
+        '56': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/lgelnvdnbm/1-19.%20A%20Prosecutor%2C%20Reborn.mp3', //
+        '132': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/hltvqjfait/2-08.%20Great%20Pursuit%20-%20The%20Resolve%20of%20Ryunosuke%20Naruhodo.mp3', //
+        '118': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/upooxbsowh/2-05.%20Partners%20-%20The%20game%20is%20afoot%21.mp3', //
+        '139': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/akwajpkejo/2-10.%20Victory%20-%20One%20Last%20Great%20Win.mp3', //
+        '156': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/ukgezljawv/2-14.%20Curtain%20Call%20Suite%20-%20Treasured%20Melodies.mp3', //
+        '111': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/tbzamkhuix/1-03.%20Jingle%20-%20The%20Curtain%20Rises%20%28Resolve%20Version%29%20.mp3', //
+        '84': 'https://vgmtreasurechest.com/soundtracks/dai-gyakuten-saiban-2-naruhodou-ryuunosuke-no-kakugo-gekiban-ongaku-daizenshuu-2017/zvsgwdknct/1-26.%20Jingle%20-%20Intermission%20%28Resolve%20Version%29.mp3', //
+
+    // Professor Layton vs Phoenix Wright
+
+        '2': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/nnalhagg/1-01%20Professor%20Layton%20vs%20Phoenix%20Wright-%20Ace%20Attorney%20~%20Opening%20Theme.mp3', //
+        '115': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/lzqeygix/01.%20Courtroom%20Lounge%20~%20Opening%20Prelude%20%28English%20Turnabout%29.mp3', //
+        '157': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/jyrnqnul/2-11%20Deathknell%20Dungeon%20~%20The%20Magical%20Prelude.mp3', //
+        '119': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/obqzzxqn/02.%20Court%20Begins%20%28English%20Turnabout%29.mp3', //
+        '161': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/sjpzblyj/2-12%20Witches%E2%80%99%20Court%20Convenes.mp3', //
+        '195': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/adseszve/2-27%20The%20Trial%20of%20the%20Great%20Witch.mp3', //
+        '133': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/oiaaadqu/05.%20Cross-Examination%20~%20Moderato%20%28English%20Turnabout%29.mp3', //
+        '167': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/smfplkpx/2-15%20Mass%20Inquisition%20~%20Moderato.mp3', //
+        '121': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/rjsmgtce/04.%20Logic%20and%20Tricks%20%28English%20Turnabout%29.mp3', //
+        '169': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/rsnlqwkm/2-16%20Logic%20and%20Witchcraft.mp3', //
+        '136': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/hzabjrey/07.%20Objection%21%20%28English%20Turnabout%29.mp3', //
+        '173': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/ijwdfphs/2-18%20Phoenix%20Wright%20~%20Objection%21%202012.mp3', //
+        '165': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/jhkdmxda/2-14%20Zacharias%20Barnham%20~%20The%20Sword%20of%20Labyrinthia.mp3', //
+        '46': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/simjnlop/1-15%20Professor%20Layton%27s%20Theme%20~%20PL%20vs%20PW-%20AA%20Version.mp3', //
+        '138': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/bynvnbsm/06.%20Cross-Examination%20~%20Allegro%20%28English%20Turnabout%29.mp3', //
+        '175': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/rewvnefq/2-19%20Mass%20Inquisition%20~%20Allegro.mp3', //
+        '142': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/flrabhfh/09.%20Pursuit%20~%20Cornered%20%28English%20Turnabout%29.mp3', //
+        '211': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/zblcbyqk/2-32%20Pursuit%20~%20Spell-breaker.mp3', //
+        '140': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/dvseruxe/08.%20Confess%20the%20Truth%20%28English%20Turnabout%29.mp3', //
+        '178': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/lhcrcksl/2-20%20Confess%20the%20Truth%202012.mp3', //
+        '126': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/ruyiwhxr/03.%20Suspense%20%28English%20Turnabout%29.mp3', //
+        '170': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/eifaopjc/2-17%20Hit%20or%20Miss%20~%20Suspense.mp3', //
+        '190': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/fgpffkla/2-22%20Courtroom%20Magic.mp3', //
+        '103': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/adnejilg/1-03%20Bewitching%20Puzzles.mp3', //
+        '67': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/iuykfwpk/1-20%20Puzzle%20Deductions%20~%20~%20PL%20vs%20PW-%20AA%20Version.mp3', //
+        '215': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/bvwzebsk/3-19%20Confrontation.mp3', //
+        '145': 'https://lambda.vgmtreasurechest.com/soundtracks/professor-layton-vs.-phoenix-wright-the-english-tournabout-gamerip/stonanph/10.%20Won%20the%20Case%21%20~%20First%20Victory%20%28English%20Turnabout%29.mp3', //
+        '216': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/ijxmompq/3-30%20Professor%20Layton%20vs%20Phoenix%20Wright-%20Ace%20Attorney%20~%20Ending%20Theme.mp3', //
+
+    // Attorney of the Arcane
+
+        '411': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/niwljnammu/01.%20Attorney%20of%20the%20Arcane.mp3', //
+        '392': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/ctzpeyzhze/02.%20Courtroom%20Lobby.mp3', //
+        '393': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/ocjjdjmuax/03.%20Courtroom%20Trial.mp3', //
+        '394': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/ogwskufhgy/04.%20Testimony.mp3', //
+        '403': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/czfhzbmgto/24.%20Testimony%20%28Noble%29.mp3', //
+        '406': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/bapnecjbjo/32.%20Testimony%20%28Profane%29.mp3', //
+        '398': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/obibuaitto/08.%20Analysis.mp3', //
+        '391': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/ljksqjumzo/10.%20Eye%20of%20Horus.mp3', //
+        '402': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/rmvnknyjkj/15.%20Aria%20Steelwind.mp3', //
+        '405': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/eftevrmpeb/31.%20Lucio%20Steelwind.mp3', //
+        '395': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/mcjzztkrky/05.%20Intense%20Testimony.mp3', //
+        '404': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/etcuejmobt/25.%20Intense%20Testimony%20%28Noble%29.mp3', //
+        '407': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/zgxugtipgg/33.%20Intense%20Testimony%20%28Profane%29.mp3', //
+        '400': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/fplbggtizd/11.%20Attack%20of%20Opportunity.mp3', //
+        '396': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/hudvnkrnlm/06.%20Dramatic%20Revelation.mp3', //
+        '410': '', //
+        '397': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/lzbrotqvtt/07.%20Deductions.mp3', //
+        '399': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/uqxiuwllen/09.%20Conflict%20of%20Interest.mp3', //
+        '401': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/ncexfyneyl/13.%20Last%20Stand.mp3', //
+        '408': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/tcurijdwle/34.%20Lord%20of%20the%20Sixth.mp3', //
+        '409': 'https://jetta.vgmtreasurechest.com/soundtracks/tyrion-cuthbert-attorney-of-the-arcane-soundtrack-2023/tevecfqdhl/35.%20Case%20Complete.mp3', //
+
+    };
+
+    // Function to process and make icons clickable
+    function processIcons() {
+        var icons = document.querySelectorAll('.character');
+
+        if (icons.length > 0) {
+            console.log("Icons found:", icons.length);
+
+            icons.forEach(function(icon) {
+                var iconId = icon.getAttribute('id'); // Get the id of the icon
+
+                // Check if the icon's ID exists in the URL map
+                if (urlMap[iconId]) {
+                    console.log("Assigning URL to icon with ID:", iconId);
+
+                    // Make the icon clickable, open the corresponding URL
+                    icon.addEventListener('click', function() {
+                        window.open(urlMap[iconId], '_blank'); // Open the URL in a new tab
+                    });
+                }
+            });
+        }
+    }
+
+    // Observe for dynamically added elements
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length > 0) {
+                processIcons(); // Process icons when new elements are added
+            }
+        });
+    });
+
+    // Start observing the body for changes
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Run the function initially in case the icons are already present
+    processIcons();
+})();
