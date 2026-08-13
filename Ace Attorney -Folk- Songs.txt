@@ -1,0 +1,111 @@
+// ==UserScript==
+// @name         Interactive Tier List™ - AA "Folk" Songs
+// @namespace    http://tampermonkey.net/
+// @version      1.0.0
+// @description  Assigns specific URLs to icons based on their ID on tiermaker.com
+// @author       Eight
+// @match        https://*.tiermaker.com/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    console.log("Icon script is a go!");
+
+    // Define the specific URLs for each icon ID
+
+
+    var urlMap = {
+
+    // Ace Attorney 1
+
+        '1': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/upqgllyg/1-19%20Simple%20Folk.mp3', //
+
+
+    // Ace Attorney 2
+
+        '12': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/bhfiyvel/2-23%20More%20Simple%20Folk.mp3', //
+        '14': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/jlcgyxud/2-20%20Eccentrics.mp3', //
+
+
+    // Ace Attorney 4
+
+        '15': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/kgaiougy/19.%20Eccentrics%202007.mp3', //
+
+
+    // Ace Attorney 5
+
+        '16': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/bvzlgzcn/1-33.%20Noisy%20People.mp3', //
+        '17': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/hzzyubyn/1-34.%20Suspicious%20People.mp3', //
+        '18': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/ukreukpx/1-35.%20Difficult%20People.mp3', //
+
+
+    // Ace Attorney 6
+
+        '19': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/glojfxzf/1-32.%20Cheerful%20People.mp3', //
+        '20': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/vkpudifc/2-09.%20Odd%20People.mp3', //
+
+
+    // Ace Attorney Investigations 1
+
+        '2': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/ykftfuhc/1-22.%20Accused%20Folk.mp3', //
+        '3': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/hhmplnia/2-04.%20Troublemaking%20Folk.mp3', //
+        '4': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-original-soundtrack/ethfcxee/2-05.%20Amusing%20Folk.mp3', //
+
+
+   // Ace Attorney Investigations 2
+
+        '5': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/qwmracjm/1-17.%20Melancholic%20Folk.mp3', //
+        '6': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/lqzyvgsx/1-18.%20Odd%20Folk.mp3', //
+        '7': 'https://nu.vgmtreasurechest.com/soundtracks/gyakuten-kenji-2-original-soundtrack/dgyzzyue/2-04.%20Restless%20Folk.mp3', //
+
+
+    // The Great Ace Attorney 1
+
+        '8': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/ruxdxedg/1-19.%20Elegance...and%20Excellence.mp3', //
+        '9': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/tgybmemv/1-24.%20A%20Migrating%20Russian%20Breeze.mp3', //
+        '10': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/sazubzrl/2-08.%20Citizens%20of%20the%20Fog%20-%20Suspicious%20Folk.mp3', //
+        '11': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/bhfgoakb/2-17.%20Ordinary%20Londoners%2C%20Ordinary%20Lives.mp3', //
+        '13': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/hobnnbsj/2-21.%20A%20Farcical%20Comedy%20-%20Boisterous%20Folk.mp3', //
+
+    };
+
+    // Function to process and make icons clickable
+    function processIcons() {
+        var icons = document.querySelectorAll('.character');
+
+        if (icons.length > 0) {
+            console.log("Icons found:", icons.length);
+
+            icons.forEach(function(icon) {
+                var iconId = icon.getAttribute('id'); // Get the id of the icon
+
+                // Check if the icon's ID exists in the URL map
+                if (urlMap[iconId]) {
+                    console.log("Assigning URL to icon with ID:", iconId);
+
+                    // Make the icon clickable, open the corresponding URL
+                    icon.addEventListener('click', function() {
+                        window.open(urlMap[iconId], '_blank'); // Open the URL in a new tab
+                    });
+                }
+            });
+        }
+    }
+
+    // Observe for dynamically added elements
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length > 0) {
+                processIcons(); // Process icons when new elements are added
+            }
+        });
+    });
+
+    // Start observing the body for changes
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Run the function initially in case the icons are already present
+    processIcons();
+})();

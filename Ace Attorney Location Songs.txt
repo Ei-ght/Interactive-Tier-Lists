@@ -1,0 +1,113 @@
+// ==UserScript==
+// @name         Interactive Tier List™ - AA Location Songs
+// @namespace    http://tampermonkey.net/
+// @version      1.0.0
+// @description  Assigns specific URLs to icons based on their ID on tiermaker.com
+// @author       Eight
+// @match        https://*.tiermaker.com/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    console.log("Icon script is a go!");
+
+    // Define the specific URLs for each icon ID
+
+
+    var urlMap = {
+
+    // Ace Attorney 2
+
+        '1': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/caturbfy/2-18%20Kurain%20Village.mp3', //
+        '12': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/apyxtzsq/2-22%20Berry%20Big%20Circus.mp3', //
+
+
+    // Ace Attorney 3
+
+        '19': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/olmddjju/3-15%20Lordly%20Tailor.mp3', //
+        '20': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-sound-box/mihkdndc/3-21%20Tr%C3%A9s%20Bien.mp3', //
+
+
+    // Ace Attorney 4
+
+        '21': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-4-original-soundtrack/grotcfsb/29.%20Drew%20Studio.mp3', //
+
+
+    // Ace Attorney 5
+
+        '22': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/yeaosxlm/1-16.%20Nine-Tails%20Vale%20~%20Home%20of%20the%20Youkai.mp3', //
+        '26': 'https://lambda.vgmtreasurechest.com/soundtracks/gyakuten-saiban-5-original-soundtrack/qyuejldg/1-31.%20Themis%20Law%20Academy%20~%20Our%20Precious%20School.mp3', //
+
+
+    // Ace Attorney 6
+
+        '23': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/bpufqoya/1-33.%20Inner%20Sanctum.mp3', //
+        '24': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/gxwnyhpc/2-14.%20Kurain%20Village%202016.mp3', //
+        '25': 'https://jetta.vgmtreasurechest.com/soundtracks/gyakuten-saiban-6-original-soundtrack/wamjiqcq/2-16.%20Audience%20Chamber.mp3', //
+
+
+    // The Great Ace Attorney 1
+
+        '2': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/ocuqvemv/1-23.%20The%20SS%20Burya.mp3', //
+        '3': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/nvsaabga/2-13.%20London%20Town.mp3', //
+        '4': 'https://nu.vgmtreasurechest.com/soundtracks/the-great-ace-attorney-adventures-grand-performance-recording/huavczrj/2-19.%20221B%20Baker%20Street.mp3', //
+
+
+    // Professor Layton vs Phoenix Wright
+
+        '5': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/nwsxkhgj/1-02%20About%20Town%20~%20PL%20vs%20PW-%20AA%20Version.mp3', //
+        '6': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/ljopivcd/1-05%20Labyrinthia.mp3', //
+        '7': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/ikbdlxbr/1-07%20A%20Pleasant%20Afternoon%20~%20PL%20vs%20PW-%20AA%20Version.mp3', //
+        '8': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/brewujmj/1-09%20Into%20the%20Forest.mp3', //
+        '9': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/gzcmgtzs/1-11%20The%20Dark%20forest%20~%20PL%20vs%20PW-%20AA%20Version.mp3', //
+        '10': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/nnbtoody/1-12%20The%20Shady%20workshop.mp3', //
+        '11': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/gmszxnwt/1-13%20Tavern.mp3', //
+        '13': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/eokfyafb/1-14%20The%20Town%27s%20Past%20~%20PL%20vs%20PW-%20AA%20Version.mp3', //
+        '14': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/itvxaiow/1-16%20The%20Town%20at%20Night.mp3', //
+        '15': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/ngrqgfll/1-24%20The%20Underground%20Ruins.mp3', //
+        '16': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/ykgzdrac/1-25%20The%20Audience%20Room.mp3', //
+        '17': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/hwjiliir/1-27%20The%20Storyteller%27s%20Tower.mp3', //
+        '18': 'https://nu.vgmtreasurechest.com/soundtracks/professor-layton-vs-gyakuten-saiban-magical-mystery-music/ubyobmgt/1-29%20The%20Hidden%20Garden.mp3', //
+
+    };
+
+    // Function to process and make icons clickable
+    function processIcons() {
+        var icons = document.querySelectorAll('.character');
+
+        if (icons.length > 0) {
+            console.log("Icons found:", icons.length);
+
+            icons.forEach(function(icon) {
+                var iconId = icon.getAttribute('id'); // Get the id of the icon
+
+                // Check if the icon's ID exists in the URL map
+                if (urlMap[iconId]) {
+                    console.log("Assigning URL to icon with ID:", iconId);
+
+                    // Make the icon clickable, open the corresponding URL
+                    icon.addEventListener('click', function() {
+                        window.open(urlMap[iconId], '_blank'); // Open the URL in a new tab
+                    });
+                }
+            });
+        }
+    }
+
+    // Observe for dynamically added elements
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length > 0) {
+                processIcons(); // Process icons when new elements are added
+            }
+        });
+    });
+
+    // Start observing the body for changes
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Run the function initially in case the icons are already present
+    processIcons();
+})();
